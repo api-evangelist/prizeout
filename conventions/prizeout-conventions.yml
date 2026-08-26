@@ -1,0 +1,87 @@
+generated: '2026-08-26'
+method: searched
+source: 'https://github.com/prizeout/swift-builds/wiki/How-To-Integrate ; https://github.com/prizeout/android-sdk-builds/wiki/How-To-Integrate ; https://docs.livelike.com/docs/prizeout-integration ; https://widget.prizeout.com/prizeout-publisher-sdk.js'
+name: Prizeout API Conventions
+description: >-
+  Cross-cutting runtime semantics for the Prizeout partner integration. Prizeout publishes no
+  OpenAPI, so nothing here is derived from a spec; every entry is either read from a published
+  first-party SDK wiki or explicitly recorded as undocumented. Undocumented is the honest and
+  common answer for this provider - the integration is an embedded widget plus partner-hosted
+  callbacks, and Prizeout does not publish a REST reference.
+interface_style: 'Embedded widget (iframe / native view controller) + partner-implemented HTTP callbacks'
+auth_style:
+  model: api-key
+  detail: 'partnerId + apiKey passed to the SDK; API Secret Key and HTTP Security Token held server-side.'
+  ref: authentication/prizeout-authentication.yml
+idempotency:
+  supported: unknown
+  documented: false
+  header: null
+  scope: null
+  retention: null
+  note: >-
+    No idempotency key, deduplication rule or retry-safety statement is published for the cash-out
+    success/failure callbacks. This matters because the success callback is what tells a partner to
+    debit a user balance; a redelivered callback with no idempotency key is a double-debit risk the
+    partner must solve on its own. No Idempotency pointer is wired into apis.yml, because asserting
+    one would credit Prizeout with a guarantee it has not made.
+pagination:
+  applicable: false
+  note: 'No public list endpoints. Offer selection happens inside the widget.'
+field_expansion: null
+metadata: null
+request_id_tracing:
+  documented: false
+  note: >-
+    No correlation-id or request-id header is documented. sessionId is the only identifier that
+    spans the flow, and it is a session token rather than a trace id.
+versioning:
+  scheme: host-based
+  detail: >-
+    Prizeout versions the widget by HOST, not by path or header: the JavaScript publisher SDK
+    resolves to widget-v2.prizeout.com by default and falls back to widget.prizeout.com for one
+    hard-coded publisher id. The sandbox is the same host with a "sandbox." prefix. There is no
+    version segment in any URL, no Accept-version header, and no published version policy.
+  ref: lifecycle/prizeout-lifecycle.yml
+error_envelope:
+  documented: false
+  note: 'No error envelope, error code registry or problem+json usage is published.'
+rate_limit_signal:
+  documented: false
+  headers: []
+  ref: rate-limits/prizeout-rate-limits.yml
+reversibility:
+  grade: none
+  applicable: true
+  applicable_note: >-
+    Prizeout has a real write surface - a cash-out irreversibly converts a partner-held cash balance
+    into a third-party gift card and emails it to the user - so reversibility is NOT na here.
+  reversal_operations: []
+  window: null
+  documented: false
+  detail: >-
+    No cancel, void, refund, reverse or restore path is documented on any public Prizeout surface,
+    and no window is stated. The published flow is one-way: the widget completes a redemption, the
+    cashout-success callback fires, and the gift card is delivered "within seconds" / "within
+    minutes". The cashout-fail callback is a FAILURE NOTIFICATION, not a reversal - it tells the
+    partner the cash-out did not happen so a hold can be released; it cannot be invoked to undo a
+    completed cash-out. Nothing was assumed about a refund window; consumer-facing gift-card refund
+    terms may exist at https://www.prizeout.com/terms/ but none was found stating an operation or a
+    duration, and inventing one here could cost a user real money.
+  evidence:
+  - url: https://docs.livelike.com/docs/prizeout-integration
+    finding: 'Four callbacks documented - balance, session, success, failure. No reversal callback.'
+  - url: https://github.com/prizeout/swift-builds/wiki/How-To-Integrate
+    finding: 'SDK surface is setCredentials + onInit + onClose. No reversal method.'
+dry_run_mode:
+  supported: false
+  note: >-
+    No dry-run or simulate flag. The nearest equivalent is the sandbox environment, which is a
+    separate credential set rather than a per-request rehearsal mode. See sandbox/prizeout-sandbox.yml.
+cross_links:
+  authentication: authentication/prizeout-authentication.yml
+  errors: errors/prizeout-problem-types.yml
+  lifecycle: lifecycle/prizeout-lifecycle.yml
+  rate_limits: rate-limits/prizeout-rate-limits.yml
+  sandbox: sandbox/prizeout-sandbox.yml
+  callbacks: asyncapi/prizeout-partner-callbacks.yml

@@ -1,0 +1,40 @@
+generated: '2026-08-26'
+method: searched
+source: 'Docs search across www.prizeout.com, both SDK integration wikis, and https://docs.livelike.com/docs/prizeout-integration'
+name: Prizeout Error Catalog
+description: >-
+  Prizeout publishes no error reference, no error-code registry and no error envelope. There is no
+  OpenAPI to derive 4xx/5xx responses from, so this catalog is empty by measurement rather than by
+  omission. The only error-shaped surface a partner sees is the cashout-fail callback, which is
+  documented by name only with no reason codes.
+format: none
+problem_json: false
+rfc9457: false
+envelope: undocumented
+problem_types: []
+known_failure_signals:
+- id: cashout-fail-callback
+  surface: 'Prizeout -> partner HTTP callback'
+  description: >-
+    Prizeout calls the partner's Cashout Fail endpoint when a cash-out does not complete, so the
+    partner can release a hold. No reason code, no error body schema and no taxonomy of failure
+    causes is published.
+  ref: asyncapi/prizeout-partner-callbacks.yml
+- id: backend-403
+  surface: 'py-merchant-portal-api.prizeout.com and the brand API on Cloud Run'
+  description: >-
+    Anonymous requests to every probed path return HTTP 403 with a small HTML body, not a structured
+    error document. Observed 2026-08-26; recorded as the observed edge behaviour, not as a
+    documented error type.
+decline_codes:
+  applicable: partial
+  note: >-
+    Prizeout is a gift-card redemption and merchant-funded rewards platform, not a card acquirer or
+    issuing processor, so a decline-code registry in the payments sense does not apply. Its nearest
+    equivalent - reasons a cash-out fails - is exactly what the cashout-fail callback does not
+    document. errors/prizeout-decline-codes.yml was deliberately NOT authored: there is no published
+    code list to capture and one must never be invented.
+gaps:
+- 'No error reference of any kind on any public surface.'
+- 'The cash-out failure callback carries no documented reason taxonomy, so a partner cannot tell
+  insufficient balance from an expired session from a brand-side inventory failure.'

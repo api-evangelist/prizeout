@@ -1,0 +1,101 @@
+generated: '2026-08-26'
+method: probed
+source: 'Direct HTTP GET of every external URL wired into apis.yml, 2026-08-26, browser User-Agent'
+name: Prizeout Pointer Liveness
+description: >-
+  Every external pointer emitted into apis.yml was fetched and its status recorded, so no pointer in
+  this repo is an unverified claim. Pointers that could not be confirmed live were not emitted.
+pointers:
+- type: Website
+  url: https://www.prizeout.com/
+  status: 200
+  verdict: live
+- type: About
+  url: https://www.prizeout.com/about/
+  status: 200
+  verdict: live
+- type: Blog
+  url: https://www.prizeout.com/blog/
+  status: 200
+  verdict: live
+- type: Contact
+  url: https://www.prizeout.com/contact/
+  status: 200
+  verdict: live
+- type: TermsOfService
+  url: https://www.prizeout.com/terms/
+  status: 200
+  verdict: live
+- type: PrivacyPolicy
+  url: https://www.prizeout.com/privacy/
+  status: 200
+  verdict: live
+- type: GitHubOrganization
+  url: https://github.com/prizeout
+  status: 200
+  verdict: live
+- type: SignUp
+  url: https://partners.prizeout.com/
+  status: 200
+  verdict: live
+  note: 'Partners Dashboard login. Credentials are issued by Prizeout, not self-serve.'
+- type: Support
+  url: https://help.prizeout.com/hc/en-us
+  status: 403
+  verdict: live
+  note: >-
+    Cloudflare bot challenge ("Just a moment..."), not a dead page. The URL is published by Prizeout
+    itself on https://candidate.prizeout.com/partners/ as its Help destination. Per pipeline policy
+    a bot challenge is not treated as dead.
+- type: Documentation
+  url: https://github.com/prizeout/swift-builds/wiki/How-To-Integrate
+  status: 200
+  verdict: live
+- type: humanURL
+  url: https://candidate.prizeout.com/partners/
+  status: 200
+  verdict: live
+- type: baseURL
+  url: https://widget-v2.prizeout.com
+  status: 200
+  verdict: live
+- type: TrustCenter
+  url: https://trust.prizeout.com/
+  status: 200
+  verdict: live
+  note: 'Wired via security/prizeout-trust-center.yml. Live but client-rendered; contents unreadable.'
+not_emitted:
+- type: StatusPage
+  url: https://status.prizeout.com/
+  status: 200
+  reason: 'Redirects to prizeout.cloudflareaccess.com SSO. Internal-only; not a public status page.'
+- type: Security
+  reason: 'No security.txt, disclosure policy or bug bounty found. All probes 404.'
+- type: Compliance
+  reason: 'Trust center is client-rendered; no certification name is machine-readable.'
+- type: WellKnown
+  reason: 'Every /.well-known/ path returned 404 on all four hosts.'
+- type: SecurityTxt
+  reason: '/.well-known/security.txt 404 on all four hosts.'
+- type: MCPServer
+  reason: 'No MCP server. tools/list returned 404/400/403 on every host.'
+- type: AgentCard
+  reason: 'No agent card. /.well-known/agent-card.json and /.well-known/agent.json 404 on all hosts. Search-only artifact, never authored.'
+- type: Idempotency
+  reason: 'No idempotency guarantee is published for the cash-out callbacks.'
+- type: Deprecation
+  reason: 'No deprecation policy published.'
+- type: AgentSkill
+  reason: 'No OpenAPI to ground skills in. Skills grounded in invented operationIds are prohibited.'
+- type: Postman
+  reason: 'No public Postman collection or workspace found.'
+- type: APIReference
+  reason: 'Prizeout publishes no API reference. The only public developer documentation is two GitHub SDK wikis.'
+- type: DeveloperPortal
+  reason: 'docs./developer./developers.prizeout.com all failed to resolve (no DNS).'
+- type: Pricing
+  reason: 'No pricing page. Merchant-funded model, sales-gated. See plans/prizeout-plans-pricing.yml.'
+- type: Roadmap
+  reason: 'No public roadmap.'
+- type: CLI
+  reason: 'No first-party CLI found in the GitHub org, npm, or the docs.'

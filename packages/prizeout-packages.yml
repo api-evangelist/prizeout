@@ -1,0 +1,138 @@
+generated: '2026-08-26'
+method: searched
+source: 'https://registry.npmjs.org/-/v1/search?text=prizeout ; https://github.com/prizeout ; https://widget.prizeout.com/prizeout-publisher-sdk.js'
+name: Prizeout Packages and SDKs
+description: >-
+  Prizeout distributes its partner integration as a first-party JavaScript publisher SDK served from
+  its own CDN (unpinned), plus native iOS (Swift) and Android SDK builds published as GitHub
+  repositories rather than to CocoaPods/SPM/Maven. Five packages are published to npm under the
+  prizeout account; all five are internal shared libraries (a component library, a crypto helper, a
+  framework and a filesystem tool) rather than API client SDKs, and are recorded here for currency
+  evidence, not as an integration path.
+packages:
+- name: prizeout-publisher-sdk.js
+  language: javascript
+  kind: sdk
+  official: true
+  registry: cdn
+  url: https://widget.prizeout.com/prizeout-publisher-sdk.js
+  version: null
+  published: null
+  note: >-
+    The canonical publisher SDK. Distribution is UNPINNED - the URL carries no version segment and
+    always serves latest, so a consumer cannot tell which build they loaded. No registry metadata
+    endpoint exists for it. Probed 2026-08-26: HTTP 200, content-type text/javascript, 14462 bytes,
+    Last-Modified Mon, 13 Jan 2025 16:07:27 GMT, ETag "e67bda5e269106cd3f4938de6a64000d". The
+    Last-Modified date is the only currency signal available and is recorded here as a note because
+    it is not a published version.
+  install: '<script src="https://widget.prizeout.com/prizeout-publisher-sdk.js"></script>'
+  status: live
+- name: prizeout/swift-builds
+  language: swift
+  kind: sdk
+  official: true
+  registry: github
+  url: https://github.com/prizeout/swift-builds
+  docs: https://github.com/prizeout/swift-builds/wiki/How-To-Integrate
+  version: null
+  published: null
+  note: >-
+    Native iOS SDK. Published as a GitHub repository that "holds the builds of our framework and the
+    docs". Checked 2026-08-26 via the GitHub API: ZERO releases and ZERO tags, and the repository
+    tree contains only README.md - the binary framework is not in the public tree. Last push
+    2021-09-21. The repository README states the SDK is "currently in private testing" and directs
+    integrators to partner sales. No CocoaPods, Swift Package Manager or Carthage coordinates are
+    published, so there is no registry to read a version from; version is null because none exists,
+    not because it was not checked.
+  status: gated
+- name: prizeout/android-sdk-builds
+  language: kotlin
+  kind: sdk
+  official: true
+  registry: github
+  url: https://github.com/prizeout/android-sdk-builds
+  docs: https://github.com/prizeout/android-sdk-builds/wiki/How-To-Integrate
+  version: null
+  published: null
+  note: >-
+    Native Android SDK, "the public builds of our android sdk". Checked 2026-08-26 via the GitHub
+    API: ZERO releases, ZERO tags, tree contains only README.md. Last push 2021-09-23. No Maven
+    Central / Google Maven coordinates and no AAR URL are published in the wiki, so no version is
+    readable anywhere. version is null because nothing is published to read.
+  status: gated
+- name: '@prizeout/prizeout-ui'
+  language: javascript
+  kind: internal-library
+  official: true
+  registry: npm
+  url: https://www.npmjs.com/package/@prizeout/prizeout-ui
+  version: 1.0.14
+  published: '2026-03-25'
+  first_published: '2025-01-22'
+  license: ISC
+  note: 'Shared PO component library. Internal UI components, not an API client.'
+- name: prizeout-ui
+  language: javascript
+  kind: internal-library
+  official: true
+  registry: npm
+  url: https://www.npmjs.com/package/prizeout-ui
+  version: 1.0.24
+  published: '2025-01-23'
+  first_published: '2024-08-28'
+  license: ISC
+  note: >-
+    Unscoped predecessor of @prizeout/prizeout-ui, same description. Superseded - last release
+    2025-01-23, two months before the scoped package took over.
+- name: '@prizeout/crypto'
+  language: javascript
+  kind: internal-library
+  official: true
+  registry: npm
+  url: https://www.npmjs.com/package/@prizeout/crypto
+  version: 1.0.6
+  published: '2024-04-23'
+  first_published: '2019-06-03'
+  license: ISC
+  note: 'Encryption and decryption algorithms. Internal helper.'
+- name: '@prizeout/ftl-framework'
+  language: javascript
+  kind: internal-library
+  official: true
+  registry: npm
+  url: https://www.npmjs.com/package/@prizeout/ftl-framework
+  version: 1.0.9
+  published: '2025-03-12'
+  first_published: '2019-06-03'
+  license: ISC
+  note: >-
+    The FTL framework the Prizeout widget and partner dashboard are built on - both HTML shells
+    carry ng-controller="ftl".
+- name: '@prizeout/fs-tool'
+  language: javascript
+  kind: internal-library
+  official: true
+  registry: npm
+  url: https://www.npmjs.com/package/@prizeout/fs-tool
+  version: 1.0.1
+  published: '2024-04-24'
+  first_published: '2024-04-24'
+  license: null
+  note: 'Filesystem tool. Internal build utility.'
+registries_checked:
+- registry: npm
+  result: 5 first-party packages found
+- registry: pypi
+  result: 'no package named prizeout (HTTP 404)'
+- registry: rubygems
+  result: 'no gem named prizeout (HTTP 404)'
+- registry: maven-central
+  result: 'no published Android coordinates found in the SDK wiki or the org'
+- registry: cocoapods
+  result: 'no podspec; the iOS SDK ships as a GitHub repo with no releases'
+findings:
+- 'DECAY SIGNAL: both native SDK repositories were last pushed in September 2021 and carry no
+  releases or tags, while the JavaScript publisher SDK was last modified 2025-01-13. The mobile
+  distribution has been static for nearly five years.'
+- 'The publisher SDK is unpinned and served from a Google Cloud Storage bucket; there is no
+  integrity hash, no version query string and no changelog, so partners cannot pin a build.'

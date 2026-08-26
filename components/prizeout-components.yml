@@ -1,0 +1,80 @@
+generated: '2026-08-26'
+method: searched
+source: 'https://widget.prizeout.com/prizeout-publisher-sdk.js ; https://github.com/prizeout/swift-builds/wiki/How-To-Integrate ; https://github.com/prizeout/android-sdk-builds/wiki/How-To-Integrate'
+name: Prizeout Embedded Components
+description: >-
+  Prizeout's product IS an embedded component. The entire integration is a client-side surface: a
+  full-screen or mini widget injected into a partner page by a loader script, or the same widget
+  hosted inside a native view controller / activity. There is no headless API alternative, which is
+  why this artifact carries more of the real contract than any other in this repo.
+families:
+- name: Web widget
+  loader: https://widget.prizeout.com/prizeout-publisher-sdk.js
+  loader_status: 200
+  loader_size_bytes: 14462
+  global: 'window.prizeoutSDK'
+  technique: 'Injects a fixed-position wrapper div (id prizeout-sdk-wrapper-id) containing an iframe pointed at the widget host'
+  components:
+  - name: full widget
+    mode: full
+    description: 'Full-screen overlay iframe covering the viewport (position:fixed;top:0;left:0;width:100%;height:100vh;z-index:50000).'
+  - name: mini widget
+    mode: mini
+    description: >-
+      Compact inline placement mounted into a caller-supplied element. Passing a miniWidgetElement
+      to init() sets settings.miniWidget; the flag is cleared when the user expands to the full
+      widget ("see more").
+  api:
+  - method: init(settings, miniWidgetElement)
+    description: 'Initialises the SDK with partner settings and optionally mounts the mini widget into an element.'
+  - method: handleIncomingMessage(event)
+    description: 'window.postMessage listener bound at init and torn down on close.'
+  settings_fields:
+  - env
+  - publisher.id
+  - partner_id
+  - merchant_name
+  routing:
+    default_endpoint: https://widget-v2.prizeout.com
+    legacy_endpoint: https://widget.prizeout.com
+    sandbox_prefix: 'sandbox.'
+    detail: >-
+      The SDK SHA-256 hashes the publisher id and compares it against an allow-list to decide
+      routing and rollout split (user_hashing_split / user_force_include_list). In the currently
+      served build every entry in that table is commented out and only one publisher id is
+      hard-coded onto the legacy host.
+- name: iOS native
+  distribution: https://github.com/prizeout/swift-builds
+  docs: https://github.com/prizeout/swift-builds/wiki/How-To-Integrate
+  components:
+  - name: PrizeoutViewController
+    description: >-
+      "We provide a view controller that contains everything needed to load the widget into an empty
+      view as long as you provide your credentials." Subclass it and call setCredentials().
+    overrides:
+    - onClose()
+    - onInit()
+- name: Android native
+  distribution: https://github.com/prizeout/android-sdk-builds
+  docs: https://github.com/prizeout/android-sdk-builds/wiki/How-To-Integrate
+  components:
+  - name: PrizeoutActivity
+    description: 'Extend and pass a Credentials object at initialisation.'
+    overrides:
+    - onInit()
+    - onClose()
+third_party_embedded:
+  note: >-
+    Recorded because it is part of what a partner ships when they embed the widget, and it is
+    visible in the served HTML. Not a Prizeout component.
+  libraries:
+  - Stripe.js (https://js.stripe.com/v3/)
+  - Plaid Link (https://cdn.plaid.com/link/v2/stable/link-initialize.js)
+  - reCAPTCHA Enterprise
+  - Sentry browser SDK 6.12.0
+  - OneTrust / CookiePro consent management
+gaps:
+- 'The postMessage envelope the widget uses to talk to the host page is not documented anywhere, so
+  a partner cannot handle widget events beyond what the native onInit/onClose wrappers expose.'
+- 'The loader script is unpinned and carries no subresource-integrity hash, while the third-party
+  scripts it sits alongside do. See packages/prizeout-packages.yml.'

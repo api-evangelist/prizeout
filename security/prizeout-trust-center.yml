@@ -1,0 +1,34 @@
+generated: '2026-08-26'
+method: probed
+source: https://trust.prizeout.com/
+name: Prizeout Trust Center
+present: true
+url: https://trust.prizeout.com/
+platform: Vanta
+http_status: 200
+probed: '2026-08-26'
+evidence:
+  canonical: https://trust.prizeout.com
+  title: Prizeout Trust Center
+  description: >-
+    "The Prizeout application and related components provides users the ability to buy and use gift
+    cards purchased with funds held on our partners' platforms. The Prizeout application also
+    includes certain related rewards, cashback and shopping products, according to partner needs."
+  platform_markers:
+  - 'assets.vanta.com static bundles (index-trust-report-*.js)'
+  - 'og:image https://app.vanta.com/doc?s=fntlllx5b649e9zh8ppl8'
+certifications: []
+certifications_readable: false
+certifications_note: >-
+  The trust center is a client-rendered Vanta single-page app. The HTML served to a non-JS client
+  contains the page title, canonical URL and description and nothing else - no framework list, no
+  control list, no subprocessors, no document requests. Certifications therefore could NOT be read.
+  This is recorded as unreadable rather than absent: Prizeout may well publish SOC 2 or similar
+  behind the bundle, but no machine can see it, and no certification name is asserted here.
+documents_gated: unknown
+subprocessors: unknown
+gaps:
+- 'Trust-center contents are invisible to any non-browser client, including the crawlers and agents
+  that increasingly do vendor pre-screening. A static fallback or a machine-readable summary would
+  make the certifications legible.'
+- 'No /.well-known/security.txt points at the trust center (probed 404 on all hosts).'

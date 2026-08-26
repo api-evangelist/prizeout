@@ -1,0 +1,87 @@
+generated: '2026-08-26'
+method: probed
+source: 'Direct HTTP probes of /.well-known/* on every Prizeout host named in apis.yml and in the widget bootstrap config'
+name: Prizeout Well-Known Documents
+description: >-
+  Every /.well-known/ path probed on every Prizeout host returned 404. Prizeout serves no
+  security.txt, no OpenID/OAuth discovery document, no api-catalog, no ai-plugin.json and no A2A
+  agent card. This file records the absence; no WellKnown or SecurityTxt pointer is wired into
+  apis.yml because nothing was served.
+hosts:
+- host: www.prizeout.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: widget-v2.prizeout.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: widget.prizeout.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: partners.prizeout.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+notes:
+- 'The 404 bodies on www.prizeout.com are the ~86KB WordPress 404 page; on widget/partners hosts they
+  are a Google Cloud Storage XML NoSuchKey error. Neither is a document.'
+- 'No agent card was found, so no a2a/ artifact was authored. Per pipeline policy an agent card is
+  search-only and is never generated on a provider''s behalf.'

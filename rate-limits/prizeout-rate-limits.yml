@@ -1,0 +1,33 @@
+generated: '2026-08-26'
+method: searched
+source: 'Docs search across www.prizeout.com, https://github.com/prizeout/swift-builds/wiki/How-To-Integrate, https://github.com/prizeout/android-sdk-builds/wiki/How-To-Integrate, https://docs.livelike.com/docs/prizeout-integration'
+name: Prizeout Rate Limits
+limit_count: 0
+description: >-
+  Prizeout publishes no rate limits. No quota, window, burst allowance, throttling status code or
+  rate-limit response header is documented on any public Prizeout surface, and there is no public
+  API to observe headers on - the backend hosts return 403 to anonymous callers. limit_count is 0
+  as an honest measurement, not an omission.
+limits: []
+response_headers: []
+exhaustion_status_code: null
+retry_after: undocumented
+observed:
+- surface: https://widget.prizeout.com/prizeout-publisher-sdk.js
+  probed: '2026-08-26'
+  finding: >-
+    Static asset served from Google Cloud Storage with cache-control public, max-age=3600. No
+    RateLimit-*, X-RateLimit-* or Retry-After header present.
+- surface: https://py-merchant-portal-api.prizeout.com/
+  probed: '2026-08-26'
+  finding: 'HTTP 403 to anonymous requests; no rate-limit headers observable without credentials.'
+throttling_controls_found:
+- control: reCAPTCHA Enterprise
+  detail: >-
+    The widget bootstrap loads https://www.google.com/recaptcha/enterprise.js and carries a
+    RECAPTCHA_KEY, so abuse control on the consumer flow is captcha-based rather than
+    quota-based. This is an anti-abuse control, not a documented rate limit, and is recorded for
+    context only.
+gaps:
+- 'A partner integrating the callback surface has no published guidance on how often Prizeout will
+  call their balance-check endpoint, which is the number they need to size their own service.'

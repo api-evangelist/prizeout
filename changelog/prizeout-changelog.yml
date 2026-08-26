@@ -1,0 +1,56 @@
+generated: '2026-08-26'
+method: searched
+source: 'https://www.prizeout.com/llms.txt ; https://www.prizeout.com/blog/ ; https://github.com/prizeout'
+name: Prizeout Changelog
+description: >-
+  Prizeout publishes no developer changelog, no release notes and no API version history. What it
+  does publish is a dated company/product blog, indexed in its own llms.txt. The entries below are
+  PRODUCT announcements read from that index, not API releases, and are labelled as such so they are
+  never mistaken for a version history.
+developer_changelog:
+  published: false
+  probed_paths:
+  - path: /changelog
+    result: not-served
+  - path: /release-notes
+    result: not-served
+  github_releases:
+    swift-builds: 0
+    android-sdk-builds: 0
+    note: 'Both SDK repositories carry zero releases and zero tags (GitHub API, 2026-08-26).'
+scheme: none
+current_version: 'widget-v2 (host-based; see lifecycle/prizeout-lifecycle.yml)'
+entries_kind: product-announcements
+entries:
+- title: 'Debit Is the Most Underbuilt Rewards Surface in Banking'
+  url: https://www.prizeout.com/debit-is-the-most-underbuilt-rewards-surface-in-banking/
+  kind: post
+  breaking: false
+- title: 'Prizeout Expands Ecosystem, Bringing Card Rewards Into One CU Platform'
+  url: https://www.prizeout.com/prizeout-expands-ecosystem-bringing-card-rewards-into-one-cu-platform/
+  kind: product-launch
+  breaking: false
+  highlight: >-
+    Launch of the Credit Card Rewards program, described as the final piece of the CashBack+
+    ecosystem, uniting CashBack+ Offers, Actions, Pay and credit card transactions into a single
+    CashBack+ balance.
+- title: 'Coastal Credit Union Now Live with CashBack+ Credit Card Rewards'
+  url: https://www.prizeout.com/coastal-credit-union-now-live-with-cashback-credit-card-rewards/
+  kind: customer-launch
+  date: '2026-06-03'
+  breaking: false
+- title: 'Prizeout Adds Credit Card Rewards to Complete CashBack+ Platform'
+  url: https://www.prizeout.com/prizeout-adds-credit-card-rewards-to-complete-cashback-platform/
+  kind: product-launch
+  breaking: false
+- title: 'Prizeout Launches CashBack+ Pay to Transform Credit Union Debit Rewards'
+  url: https://www.prizeout.com/prizeout-launches-cashback-pay-to-transform-credit-union-debit-rewards/
+  kind: product-launch
+  breaking: false
+sitemap_lastmod:
+  post_sitemap: '2026-08-24'
+  page_sitemap: '2026-05-06'
+  source: https://www.prizeout.com/sitemap.xml
+gaps:
+- 'No API or SDK changelog, so a partner cannot tell what changed between the widget v1 and v2
+  hosts, or whether the unpinned publisher SDK has changed under them.'

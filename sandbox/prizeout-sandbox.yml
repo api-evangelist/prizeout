@@ -1,0 +1,59 @@
+generated: '2026-08-26'
+method: searched
+source: 'https://github.com/prizeout/swift-builds/wiki/How-To-Integrate ; https://github.com/prizeout/android-sdk-builds/wiki/How-To-Integrate ; https://widget.prizeout.com/prizeout-publisher-sdk.js'
+name: Prizeout Sandbox
+description: >-
+  Prizeout ships a real two-environment model. Every SDK takes an explicit environment selector, and
+  the JavaScript publisher SDK resolves the sandbox by prefixing the widget host with "sandbox." -
+  both sandbox hosts were probed live and return HTTP 200. Prizeout issues a separate set of sandbox
+  credentials before production credentials are released.
+environments:
+- name: sandbox
+  selector_js: "settings.env = 'sandbox'"
+  selector_swift: Environment.sandbox
+  selector_kotlin: Environment.SANDBOX
+  default: true
+  default_note: 'The JavaScript SDK defaults to sandbox when settings.env is unset - a safe default.'
+  hosts:
+  - url: https://sandbox.widget-v2.prizeout.com
+    status: 200
+    probed: '2026-08-26'
+  - url: https://sandbox.widget.prizeout.com
+    status: 200
+    probed: '2026-08-26'
+- name: production
+  selector_js: "settings.env = 'prod'"
+  selector_swift: Environment.production
+  selector_kotlin: Environment.PRODUCTION
+  default: false
+  hosts:
+  - url: https://widget-v2.prizeout.com
+    status: 200
+    probed: '2026-08-26'
+  - url: https://widget.prizeout.com
+    status: 200
+    probed: '2026-08-26'
+credentials:
+  model: >-
+    "Prizeout provides two sets of credentials: initial testing credentials for the sandbox
+    environment, and production credentials once integration and testing are completed."
+  source: https://github.com/prizeout/swift-builds/wiki/How-To-Integrate
+  issued_from: 'Prizeout Partners Dashboard > Account Settings'
+  self_serve: false
+  self_serve_note: >-
+    Sandbox credentials are NOT self-serve. The wiki states integration "assumes you already have
+    access to your Prizeout dashboard; if you haven't received dashboard access, contact your
+    partner sales contact or partner support team". A developer cannot obtain a sandbox key without
+    a sales conversation.
+test_values:
+  published: false
+  note: >-
+    Prizeout publishes NO test cards, test gift-card codes, magic user identifiers or fixture
+    triggers on any public surface. The only test-shaped value in the public SDK wikis is the
+    example email test@prizeout.com in the setCredentials sample, which is an illustrative
+    placeholder, not a documented magic value. Nothing was invented to fill this section.
+test_clocks: none
+fixtures: none
+gaps:
+- 'No published sandbox data set, so a partner cannot rehearse a cash-out without live credentials.'
+- 'No documented way to trigger the cash-out failure callback in sandbox.'

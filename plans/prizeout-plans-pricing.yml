@@ -1,0 +1,29 @@
+generated: '2026-08-26'
+method: searched
+source: 'https://candidate.prizeout.com/partners/ ; https://www.prizeout.com/ ; https://www.prizeout.com/advertise/'
+name: Prizeout Plans and Pricing
+plan_count: 0
+description: >-
+  Prizeout publishes no pricing tiers, no plan table and no rate card. The partner page states the
+  service is offered at "no cost to them or you", which positions it as a merchant-funded
+  revenue-share rather than a subscription - partners earn from the auction rather than pay for
+  access. There is no self-serve sign-up and no published contract terms, so plan_count is 0 with a
+  note rather than a fabricated tier list.
+plans: []
+model: merchant-funded-revenue-share
+model_evidence:
+- url: https://candidate.prizeout.com/partners/
+  quote: '"no cost to them or you"'
+- source: 'PYMNTS / industry coverage and the company''s own positioning'
+  detail: >-
+    Brands bid in a real-time auction to place a gift-card offer; the bonus value returned to the
+    user (marketing cites up to 25% on 95% of brands) is funded by the brand, and the partner
+    platform shares in the revenue. Prizeout describes this to credit unions as a non-interest
+    income stream.
+commercial_gate:
+  self_serve: false
+  route: 'Contact Sales; partner dashboard credentials are issued by Prizeout after a sales conversation.'
+  signup_url: https://partners.prizeout.com/
+notes:
+- 'No public price, minimum, revenue-share percentage or contract term was found on any reachable
+  page. Nothing was estimated.'

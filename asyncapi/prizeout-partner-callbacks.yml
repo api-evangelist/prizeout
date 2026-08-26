@@ -1,0 +1,73 @@
+generated: '2026-08-26'
+method: searched
+source: 'https://docs.livelike.com/docs/prizeout-integration ; https://github.com/prizeout/swift-builds/wiki/How-To-Integrate'
+name: Prizeout Partner Callbacks
+description: >-
+  Prizeout's event surface runs in the OPPOSITE direction from a conventional webhook catalog: the
+  partner implements four HTTP endpoints, registers their URLs in the Prizeout Partners Dashboard,
+  and Prizeout calls INTO the partner to verify balance, validate a session and report the outcome
+  of a cash-out. There is no Prizeout-hosted event stream, no AsyncAPI document and no subscription
+  API. This artifact captures the callback catalog as published; it is not an AsyncAPI spec and none
+  was fabricated.
+kind: partner-implemented-callbacks
+direction: prizeout-calls-partner
+transport: https
+registration:
+  where: 'Prizeout Dashboard > Account Settings'
+  method: 'Partner pastes each callback URL against its labelled field.'
+  self_serve: false
+authentication:
+  scheme: 'HTTP Security Token issued by Prizeout, presented on the inbound callback'
+  ref: authentication/prizeout-authentication.yml
+  gap: 'Header name and any signature/HMAC scheme are not publicly documented.'
+callbacks:
+- id: balance-check
+  label: Balance Check
+  purpose: 'Prizeout asks the partner for the current withdrawable balance of the user before rendering offers.'
+  direction: prizeout -> partner
+  reference_implementation: https://cf-blast.livelikecdn.com/api/v1/applications/{client_id}/prizeout-callback-balance/
+  payload_documented: false
+- id: session
+  label: Session
+  purpose: 'Prizeout asks the partner to confirm a session_id is still valid, at several stages of the flow.'
+  direction: prizeout -> partner
+  reference_implementation: https://cf-blast.livelikecdn.com/api/v1/applications/{client_id}/prizeout-callback-session/
+  payload_documented: false
+- id: cashout-success
+  label: Cashout Success
+  purpose: 'Prizeout notifies the partner that a cash-out completed, so the partner can debit the user balance.'
+  direction: prizeout -> partner
+  consequence: irreversible-debit
+  reference_implementation: https://cf-blast.livelikecdn.com/api/v1/applications/{client_id}/prizeout-callback-success/
+  payload_documented: false
+- id: cashout-fail
+  label: Cashout Fail
+  purpose: 'Prizeout notifies the partner that a cash-out failed, so the partner can release any hold.'
+  direction: prizeout -> partner
+  reference_implementation: https://cf-blast.livelikecdn.com/api/v1/applications/{client_id}/prizeout-callback-failure/
+  payload_documented: false
+client_side_events:
+  transport: 'window.postMessage between the host page and the Prizeout iframe'
+  source: https://widget.prizeout.com/prizeout-publisher-sdk.js
+  handler: 'prizeoutSDK.prototype.handleIncomingMessage'
+  native_callbacks:
+  - name: onInit
+    platforms: [ios, android]
+    purpose: 'Fires after the widget initialises.'
+  - name: onClose
+    platforms: [ios, android]
+    purpose: 'Fires when the user closes the widget; the host app handles navigation. Required override.'
+  note: >-
+    The postMessage envelope shape is not documented in any published Prizeout reference; only the
+    two native override methods are named in the SDK wikis. No message schema was inferred.
+asyncapi_spec: none
+asyncapi_note: >-
+  No AsyncAPI document exists on any Prizeout host. /asyncapi.yaml and /asyncapi.json were not
+  served, and Prizeout publishes no event catalog. N/A rather than a gap - the architecture is
+  partner-implemented callbacks, not a broker or stream.
+gaps:
+- 'No request or response payload schema is published for any of the four callbacks. The only public
+  record of them is a third-party partner integration guide.'
+- 'No retry policy, timeout, idempotency key or delivery-guarantee statement for the callbacks.'
+- 'The four reference URLs above belong to LiveLike, a Prizeout PARTNER implementing the contract -
+  they are evidence of the callback catalog, not Prizeout-operated endpoints.'

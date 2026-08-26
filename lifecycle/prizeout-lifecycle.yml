@@ -1,0 +1,66 @@
+generated: '2026-08-26'
+method: searched
+source: 'https://widget.prizeout.com/prizeout-publisher-sdk.js ; https://github.com/prizeout ; https://status.prizeout.com/ (probed) ; https://www.prizeout.com/blog/'
+name: Prizeout Lifecycle
+description: >-
+  Versioning, deprecation, status and support-lifecycle posture for the Prizeout partner
+  integration. Prizeout publishes no version policy, no deprecation policy, no SLA and no publicly
+  reachable status page.
+versioning:
+  scheme: host-based
+  current_version: 'widget-v2 (host widget-v2.prizeout.com)'
+  previous_version: 'widget (host widget.prizeout.com)'
+  detail: >-
+    The publisher SDK routes every publisher to widget-v2.prizeout.com except one hard-coded
+    publisher id (77d7bf35-8c81-4a9f-86c1-1122a5fb4018), which is pinned to the older
+    widget.prizeout.com host. Both hosts are live (HTTP 200, probed 2026-08-26). The SDK calls the
+    older host alternative_endpoint and comments the transition as "Redirect to new sdk", so v1 is
+    in a de facto migration but has no announced sunset.
+  policy_published: false
+  headers: []
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No deprecation policy page, no Sunset or Deprecation response headers documented, and no notice
+    period stated anywhere. No Deprecation pointer is wired into apis.yml.
+  observed_decay:
+  - item: 'prizeout/swift-builds (iOS SDK)'
+    signal: 'Last push 2021-09-21; zero releases, zero tags; README says "currently in private testing".'
+  - item: 'prizeout/android-sdk-builds (Android SDK)'
+    signal: 'Last push 2021-09-23; zero releases, zero tags.'
+  - item: 'prizeout-ui (unscoped npm)'
+    signal: 'Superseded by @prizeout/prizeout-ui; last release 2025-01-23.'
+  - item: 'widget.prizeout.com (v1 widget host)'
+    signal: 'Reachable but reserved for one hard-coded publisher id; SDK comments it as the legacy path.'
+status_page:
+  published: false
+  url: https://status.prizeout.com/
+  probed: '2026-08-26'
+  status: 200
+  finding: >-
+    status.prizeout.com resolves but the request is intercepted by Cloudflare Access and redirected
+    to prizeout.cloudflareaccess.com for SSO login. It is an INTERNAL status page, not a public one.
+    No StatusPage pointer is wired into apis.yml - the page exists but the public cannot read it.
+sla:
+  published: false
+  note: 'No uptime or latency commitment published. Marketing states gift cards arrive "within seconds".'
+support:
+  channels:
+  - type: help-center
+    url: https://help.prizeout.com/hc/en-us
+    note: 'Zendesk help center. Returns 403 to a non-browser client (bot challenge); the host and Zendesk instance demonstrably exist.'
+  - type: email
+    value: techsupport@prizeout.com
+    note: 'Named in both SDK integration wikis as the technical support contact.'
+  - type: form
+    url: https://www.prizeout.com/contact/
+    status: 200
+  - type: partner-dashboard
+    url: https://partners.prizeout.com/
+    status: 200
+release_notes:
+  published: false
+  note: 'No developer changelog. See changelog/prizeout-changelog.yml.'

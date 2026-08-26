@@ -1,18 +1,62 @@
 aid: prizeout
 name: Prizeout
-description: 'Prizeout is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Prizeout is a New York City based advertising-technology and fintech company that turns
+  a cash-out, payout or rewards balance into a bonused digital gift card. Its button sits on partner
+  platforms wherever a withdrawal happens - online gaming and lottery apps, sportsbooks, earned-wage-access
+  and payroll providers, insurance and marketplace platforms, and banks and credit unions - and runs a
+  real-time auction in which participating brands bid to place a gift-card offer in front of the user,
+  typically returning more value than the cash amount. Prizeout distributes the platform through an
+  embeddable browser widget loaded by a first-party JavaScript publisher SDK, plus native iOS (Swift)
+  and Android SDKs, and a set of partner-implemented HTTP callbacks for balance check, session
+  validation and cash-out success/failure. Its CashBack+ product line (Offers, Actions, Pay and Credit
+  Card Rewards) is delivered to credit unions through the Prizeout Partners CUSO.'
 url: https://raw.githubusercontent.com/api-evangelist/prizeout/refs/heads/main/apis.yml
+image: https://assets.prizeout.com/widget/cobranded-logos/PrizeoutLogoCircle.svg
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-26'
 modified: '2026-08-26'
 tags:
 - Company
-apis: []
+- Advertising
+- Rewards
+- Gift Cards
+- Payouts
+- Financial Services
+- Credit Unions
+- Banking
+- Loyalty
+- Embedded Finance
+- AdTech
+- FinTech
+apis:
+- aid: prizeout-publisher-widget
+  name: Prizeout Publisher Widget and SDKs
+  description: 'The Prizeout partner integration surface. A partner loads the first-party JavaScript
+    publisher SDK (prizeout-publisher-sdk.js), or the native iOS/Android SDK, and passes partner
+    credentials plus a user session and balance; the SDK renders the Prizeout widget in an iframe or
+    view controller from the widget host. Prizeout then calls back into four partner-hosted HTTP
+    endpoints - balance check, session validation, cash-out success and cash-out failure - to verify
+    and settle the withdrawal. Credentials and the callback URLs are configured in the Prizeout
+    Partners Dashboard; sandbox and production environments are both provided.'
+  humanURL: https://candidate.prizeout.com/partners/
+  baseURL: https://widget-v2.prizeout.com
+  tags:
+  - Rewards
+  - Gift Cards
+  - Payouts
+  - Widget
+  - SDK
+  properties:
+  - type: Documentation
+    url: https://github.com/prizeout/swift-builds/wiki/How-To-Integrate
+  - type: Sandbox
+    url: sandbox/prizeout-sandbox.yml
+  - type: Authentication
+    url: authentication/prizeout-authentication.yml
+  - type: Webhooks
+    url: asyncapi/prizeout-partner-callbacks.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +64,57 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://forgeglobal.com/prizeout_stock/
+  url: https://www.prizeout.com/
+- type: About
+  url: https://www.prizeout.com/about/
+- type: Blog
+  url: https://www.prizeout.com/blog/
+- type: Support
+  url: https://help.prizeout.com/hc/en-us
+- type: Contact
+  url: https://www.prizeout.com/contact/
+- type: TermsOfService
+  url: https://www.prizeout.com/terms/
+- type: PrivacyPolicy
+  url: https://www.prizeout.com/privacy/
+- type: GitHubOrganization
+  url: https://github.com/prizeout
+- type: SignUp
+  url: https://partners.prizeout.com/
+- type: TrustCenter
+  url: security/prizeout-trust-center.yml
+- type: LLMsTxt
+  url: llms/prizeout-llms.txt
+- type: Packages
+  url: packages/prizeout-packages.yml
+- type: SDKs
+  url: packages/prizeout-packages.yml
+- type: Conformance
+  url: conformance/prizeout-conformance.yml
+- type: ErrorCatalog
+  url: errors/prizeout-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/prizeout-lifecycle.yml
+- type: Authentication
+  url: authentication/prizeout-authentication.yml
+- type: DomainSecurity
+  url: security/prizeout-domain-security.yml
+- type: Sandbox
+  url: sandbox/prizeout-sandbox.yml
+- type: Conventions
+  url: conventions/prizeout-conventions.yml
+- type: Components
+  url: components/prizeout-components.yml
+- type: ChangeLog
+  url: changelog/prizeout-changelog.yml
+- type: Plans
+  url: plans/prizeout-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/prizeout-rate-limits.yml
+- type: Webhooks
+  url: asyncapi/prizeout-partner-callbacks.yml
+x-enrichment:
+  date: '2026-08-26'
+  status: enriched
+  artifacts_added: 19
+  pass: local-v1

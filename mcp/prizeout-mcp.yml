@@ -1,0 +1,36 @@
+generated: '2026-08-26'
+method: derived
+source: 'Probes of https://www.prizeout.com/mcp, https://widget.prizeout.com/mcp, https://widget-v2.prizeout.com/mcp, https://py-merchant-portal-api.prizeout.com/mcp ; npm and GitHub org search'
+name: Prizeout MCP
+status: none
+description: >-
+  Prizeout publishes no MCP server. A tools/list JSON-RPC POST was sent to /mcp on every Prizeout
+  host on 2026-08-26: www.prizeout.com returned 404, the two widget hosts returned 400 from Google
+  Cloud Storage, and the merchant portal API returned 403 to anonymous callers. No hosted endpoint,
+  no npm or PyPI stdio package, and no mention of MCP anywhere in the GitHub org or on the site.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: probed
+tools: []
+candidate_tools_note: >-
+  No candidate tool list was derived. Deriving one requires an OpenAPI to bind operations to, and
+  Prizeout publishes no machine-readable contract on any host (see x-coverage in apis.yml). Inventing
+  tool names from marketing copy would produce a manifest that reads as an agent surface Prizeout
+  does not have.
+probes:
+- url: https://www.prizeout.com/mcp
+  method: 'POST tools/list'
+  status: 404
+- url: https://widget.prizeout.com/mcp
+  method: 'POST tools/list'
+  status: 400
+- url: https://widget-v2.prizeout.com/mcp
+  method: 'POST tools/list'
+  status: 400
+- url: https://py-merchant-portal-api.prizeout.com/mcp
+  method: 'POST tools/list'
+  status: 403
