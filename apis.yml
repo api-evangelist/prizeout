@@ -50,7 +50,7 @@ tags:
 - Gift Cards
 - Payouts
 - Financial-Services
-- Credit Unions
+- Credit Union
 - Banking
 - Loyalty
 - Embedded Finance
@@ -82,6 +82,12 @@ apis:
   humanURL: https://candidate.prizeout.com/partners/
   baseURL: https://widget-v2.prizeout.com
   tags:
+  - Rewards
+  - Gift Cards
+  - Payouts
+  - Widgets
+  - SDK
+  tags_raw:
   - Rewards
   - Gift Cards
   - Payouts
