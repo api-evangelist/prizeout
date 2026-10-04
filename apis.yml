@@ -49,7 +49,7 @@ tags:
 - Rewards
 - Gift Cards
 - Payouts
-- Financial-Services
+- Financial Services
 - Credit Union
 - Banking
 - Loyalty
@@ -69,6 +69,7 @@ tags_raw:
 - Embedded Finance
 - AdTech
 - FinTech
+- Financial-Services
 apis:
 - aid: prizeout:prizeout-publisher-widget
   name: Prizeout Publisher Widget and SDKs
