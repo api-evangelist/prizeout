@@ -1,16 +1,89 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/prizeout/integrations
 - https://n8n.io/integrations/prizeout/
 - https://composio.dev/toolkits/prizeout
 - https://monid.ai/tools/prizeout
 checked:
+- https://api.nuget.org/v3
 - https://composio.dev/toolkits/prizeout
+- https://crates.io/api/v1
 - https://monid.ai/tools/prizeout
 - https://n8n.io/integrations/prizeout/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://zapier.com/apps/prizeout/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@prizeout/crypto
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@prizeout/crypto'
+      version: 1.0.6
+      released: '2025-01-22'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@prizeout/crypto
+      repo_leg: github-org:prizeout
+      publisher_leg: email:prizeout.com
+      matched_by: domain
+    - name: '@prizeout/fs-tool'
+      version: 1.0.1
+      released: '2025-01-22'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@prizeout/fs-tool
+      repo_leg: github-org:prizeout
+      publisher_leg: email:prizeout.com
+      matched_by: domain
+    - name: '@prizeout/ftl-framework'
+      version: 1.0.9
+      released: '2025-03-12'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@prizeout/ftl-framework
+      repo_leg: github-org:prizeout
+      publisher_leg: email:prizeout.com
+      matched_by: domain
+    - name: '@prizeout/prizeout-ui'
+      version: 1.0.14
+      released: '2026-03-25'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@prizeout/prizeout-ui
+      repo_leg: github-org:prizeout
+      publisher_leg: email:prizeout.com
+      matched_by: domain
+    - name: prizeout-ui
+      version: 1.0.24
+      released: '2025-01-23'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/prizeout-ui
+      repo_leg: github-org:prizeout
+      publisher_leg: email:prizeout.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 templates: []
